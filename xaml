@@ -1,0 +1,191 @@
+<Window x:Class="SchoolPlanner.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="School Planner" Height="450" Width="800"
+        Background="#f0f8ff">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#B0E0E6"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderBrush" Value="#B0E0E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#B0E0E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#ADD8E6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Foreground" Value="MidnightBlue"/>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="Background" Value="#E0FFFF"/>
+            <Setter Property="BorderBrush" Value="#B0E0E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#E0FFFF"/>
+            <Setter Property="BorderBrush" Value="#B0E0E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#E0FFFF"/>
+            <Setter Property="BorderBrush" Value="#B0E0E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text.Length, RelativeSource={RelativeSource Self}}" Value="0">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Duration="0" To="#A9A9A9" Storyboard.TargetProperty="(TextBox.Foreground).(SolidColorBrush.Color)" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Text.Length, RelativeSource={RelativeSource Self}}" Value="0">
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Duration="0" To="Black" Storyboard.TargetProperty="(TextBox.Foreground).(SolidColorBrush.Color)" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CompletedButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#B0E0E6"/>
+            <Setter Property="Foreground" Value="MidnightBlue"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderBrush" Value="#B0E0E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#B0E0E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#ADD8E6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <TabControl Background="Transparent" Margin="10">
+            <!-- Вкладка для добавления и отображения домашнего задания -->
+            <TabItem Header="Домашнее задание" Background="#B0E0E6" Foreground="MidnightBlue" FontWeight="Bold">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <StackPanel Grid.Row="0" Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <ComboBox x:Name="HomeworkSubjectComboBox" Width="180" Margin="5" 
+                                  ItemsSource="{Binding AvailableSubjects}" 
+                                  SelectedItem="{Binding SelectedHomeworkSubject, Mode=TwoWay}" 
+                                  Background="#E0FFFF" HorizontalAlignment="Center"/>
+                        
+                        <TextBox x:Name="HomeworkTaskTextBox" Width="200" Margin="5" Background="#E0FFFF" 
+                                 Text="Задание" GotFocus="HomeworkTaskTextBox_GotFocus"/>
+
+                        <DatePicker x:Name="HomeworkDeadlinePicker" Width="180" Margin="5" Background="#E0FFFF"/>
+                        <Button Content="Добавить ДЗ" Click="AddHomeworkButton_Click" Background="LightSkyBlue" Foreground="MidnightBlue"/>
+                    </StackPanel>
+
+                    <!-- Панель для отображения списка домашнего задания -->
+                    <ListBox Grid.Row="1" Margin="10" ItemsSource="{Binding HomeworkList}" Background="#F0F8FF">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="5">
+                                    <TextBlock Text="{Binding Subject}" Width="120" VerticalAlignment="Center"/>
+                                    <StackPanel Orientation="Horizontal" Margin="10,0">
+                                        <TextBlock Text="{Binding Task}" Width="200" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Deadline, StringFormat='dd.MM.yyyy'}" Width="100" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <Button Content="Выполнено" CommandParameter="{Binding}" Click="MarkAsCompletedButton_Click" Style="{StaticResource CompletedButtonStyle}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+
+            <!-- Вкладка для истории -->
+            <TabItem Header="История" Background="#B0E0E6" Foreground="MidnightBlue" FontWeight="Bold">
+                <ListBox ItemsSource="{Binding History}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Action}" Foreground="MidnightBlue" Margin="5"/>
+                                <TextBlock Text="{Binding Date, StringFormat='dd.MM.yyyy HH:mm'}" Foreground="DarkSlateGray" Margin="5"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
